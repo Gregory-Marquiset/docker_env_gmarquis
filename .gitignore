@@ -128,3 +128,25 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# --- Nouveaux ajouts pour le projet Docker avec NeoVim ---
+
+# MacOS system files
+.DS_Store
+
+# Vim / NeoVim swap files and session files
+*.swp
+*.swo
+*.swn
+plugged/
+session.vim
+
+# Docker-specific exclusions
+depot/           # Répertoire monté pour le dépôt local
+docker-compose.override.yml
+*.pid
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.iml
