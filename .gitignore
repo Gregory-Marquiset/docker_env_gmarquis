@@ -93,8 +93,7 @@ dist
 
 # Gatsby files
 .cache/
-# Comment in the public line in if your project uses Gatsby and not Next.js
-# https://nextjs.org/blog/next-9-1#public-directory-support
+# Uncomment this if your project uses Gatsby instead of Next.js
 # public
 
 # vuepress build output
@@ -129,12 +128,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# --- Nouveaux ajouts pour le projet Docker avec NeoVim ---
+# --- Additional Project-Specific Exclusions ---
 
 # MacOS system files
 .DS_Store
 
-# Vim / NeoVim swap files and session files
+# Vim / NeoVim swap files, sessions, and plugins
 *.swp
 *.swo
 *.swn
@@ -142,7 +141,7 @@ plugged/
 session.vim
 
 # Docker-specific exclusions
-depot/           # Répertoire monté pour le dépôt local
+depot/                 # Excludes the directory for the mounted Git repo
 docker-compose.override.yml
 *.pid
 
@@ -150,3 +149,19 @@ docker-compose.override.yml
 .vscode/
 .idea/
 *.iml
+
+# Jest and Testing Outputs
+jest-test-results.json
+coverage/
+.nyc_output/
+
+# Tailwind CSS cache
+tailwindcss/
+
+# Prettier
+.prettierignore
+.prettierrc
+
+# ESLint
+.eslintcache
+.eslintrc
