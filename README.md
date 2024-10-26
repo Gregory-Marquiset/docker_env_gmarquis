@@ -74,9 +74,6 @@ For a comprehensive guide on setup, usage, and contributing to this project, ple
 - **NeoVim**: Enhanced text editor with autocompletion and Git integration.
 - **Jest**: Testing framework for unit and integration tests.
 - **ESLint and Prettier**: Tools for code quality and consistent formatting.
-
-## 🤝 Contributing
-Contributions are welcome! Please see the [Contribution Guide](https://github.com/Gregory-Marquiset/docker_env_gmarquis/wiki/Contribution-Guide) in the Wiki for more information on contributing to this project.
 ___
 With this structured Docker environment, my goal is to streamline the development workflow and maintain a high standard of code quality, ensuring a smooth experience from development to deployment.
 
