@@ -1,79 +1,64 @@
-# Docker Development Environment for Interactive Web Application
+# Marquis Development Environment (marquis_denv) 🛠️
 
-This repository provides a Dockerized development environment designed for building a responsive and interactive web application. Equipped with modern tools and libraries like Node.js, React, Three.js, and NeoVim, this setup is tailored for developing applications with rich UIs and 3D graphics.
+Bienvenue dans **marquis_denv** ! Ce projet est un environnement de développement Docker personnalisé, conçu pour simplifier la mise en place d'un environnement de travail cohérent où que vous soyez.
 
-## 🛠 Key Features
+## 👨‍💼 Présentation du projet
 
-- **React and Shadcn UI**: for building modular and responsive UI components.
-- **Three.js**: integration for immersive 3D graphics and animations.
-- **Tailwind CSS**: for efficient and customizable styling across the application.
-- **Express.js**: for managing server-side routing and backend API handling.
-- **NeoVim**: with autocompletion, Git integration, and code folding for an optimized coding experience.
-- **Automated Testing**: with Jest for unit and integration tests.
-- **ESLint and Prettier**: for maintaining code quality and consistent formatting.
+**marquis_denv** fournit un environnement de développement basé sur **Ubuntu LTS**, préconfiguré avec des outils et éditeurs nécessaires pour le développement logiciel, en particulier pour les langages **C** et **C++**.
 
-## 🚀 Installation and Setup
+### Fonctionnalités incluses :
 
-### Prerequisites
+- 🫠 **Neovim** (avec NvChad) comme éditeur de code principal
+- 🛠 **Build-essential** pour la compilation de code
+- 🔢 **Valgrind** pour le débogage de la mémoire
+- 📁 **Ripgrep** pour des recherches de code rapides et efficaces
+- 🌐 **Nerd Fonts** pour une interface plus agréable dans Neovim
+- 💻 Création d'un utilisateur **non-root** pour la sécurité
 
-- **Docker** and **Docker Compose** must be installed on your machine.
+## 📒 Pré-requis
 
-### Installation
+- **Docker** : Assurez-vous d'avoir Docker installé sur votre système.
 
-1. **Clone the repository**:
+## 🛠 Installation
+
+1. Clonez le dépôt sur votre machine :
    ```bash
-   git clone https://github.com/your-username/docker-development-env.git
-   cd docker-development-env
+   git clone https://github.com/Gregory-Marquiset/marquis_denv.git
+   ```
+2. Rendez-vous dans le répertoire du projet :
+   ```bash
+   cd marquis_denv
+   ```
+3. Construisez l'image Docker :
+   ```bash
+   docker build -t marquis_denv .
+   ```
 
-2. **Run Docker with the update script**:
+## 🌟 Utilisation
 
-    This command will ensure your Docker container is up-to-date and starts the development environment.
-    ```bash
-    ./docker-update.sh
+Pour lancer le conteneur :
+```bash
+docker run -it marquis_denv
+```
+Cela vous connectera au shell de l'utilisateur **marquis_guest** dans l'environnement de développement pré-configuré.
 
-## 📄 Useful Commands
-- **Enter the container**:
-    ```bash
-    docker exec -it your_service_name /bin/bash
-- **Use NeoVim in the container**:
-    ```bash
-    docker-compose run neovim
-- **Run tests**:
+## 🛡️ Outils inclus
 
-    Inside the Docker container, execute:
-    ```bash
-    npm test
-- **Lint and format code**:
+- **Neovim** avec **NvChad** pré-installé pour une expérience de développement moderne et personnalisable.
+- **Ripgrep** pour des recherches de texte rapides.
+- **Valgrind** pour vérifier les fuites de mémoire dans vos programmes C/C++.
+- **Nerd Fonts** (Hack Nerd Font) pour une meilleure expérience visuelle dans Neovim.
 
-    To check and format code with ESLint and Prettier:
-    ```bash
-    npm run lint
-    npm run format
+## 🛠 Customisation de l'environnement
+L'éditeur **Neovim** est configuré avec **NvChad**, une distribution moderne qui offre de nombreuses fonctionnalités adaptées au développement. N'hésitez pas à personnaliser la configuration de Neovim (à l'emplacement `~/.config/nvim`) selon vos besoins.
 
-## 📖 Documentation and Wiki
-For a comprehensive guide on setup, usage, and contributing to this project, please refer to the [Project Wiki](https://github.com/Gregory-Marquiset/docker_env_gmarquis/wiki). The Wiki contains information on:
+## 🌐 Liens utiles
 
-- **Detailed Setup**: Step-by-step instructions to configure your environment.
-- **Using NeoVim**: Configuration and plugins for a seamless coding experience.
-- **Testing and Automation**: Guidelines for running tests and maintaining code quality.
-- **Deployment Guide**: Instructions for deploying the application with CI/CD pipelines.
+- [Dépôt GitHub](https://github.com/Gregory-Marquiset/marquis_denv) — Pour obtenir le code source et suivre les mises à jour du projet.
+- [Docker Documentation](https://docs.docker.com/get-started/) — Pour installer Docker si ce n'est pas déjà fait.
 
-### 📂 Project Structure
-- **Dockerfile**: Defines the Docker image and installs necessary dependencies.
-- **docker-compose.yml**: Manages Docker services, including NeoVim and Node.js.
-- **init.vim**: Configuration for NeoVim, including plugins for development.
-- **clone-repo.sh**: Script to clone or mount the Git repository for collaborative development.
+## 🛍️ Licence
+Ce projet est sous licence **MIT**. Consultez le fichier `LICENSE` pour plus de détails.
 
-### 📦 Technologies Used
-- **Docker, Docker Compose**: Core containerization tools to ensure a portable and consistent development environment.
-- **Node.js and Express.js**: Backend development and API management.
-- **React and Shadcn UI**: Frontend development for building responsive and modular UI components.
-- **Three.js**: 3D graphics library for adding interactive and immersive visual elements.
-- **Tailwind CSS**: Utility-first CSS framework for efficient styling.
-- **NeoVim**: Enhanced text editor with autocompletion and Git integration.
-- **Jest**: Testing framework for unit and integration tests.
-- **ESLint and Prettier**: Tools for code quality and consistent formatting.
-___
-With this structured Docker environment, my goal is to streamline the development workflow and maintain a high standard of code quality, ensuring a smooth experience from development to deployment.
-
-For further assistance, explore the project [Wiki](https://github.com/Gregory-Marquiset/docker_env_gmarquis/wiki).
+---
+Merci d'utiliser **marquis_denv** ! Si vous avez des suggestions d'amélioration ou des problèmes, n'hésitez pas à me contacter directement via GitHub. 👋🎉
