@@ -11,7 +11,6 @@ This repository provides a Dockerized development environment designed for build
 - **NeoVim**: with autocompletion, Git integration, and code folding for an optimized coding experience.
 - **Automated Testing**: with Jest for unit and integration tests.
 - **ESLint and Prettier**: for maintaining code quality and consistent formatting.
-- **CI/CD-ready**: Docker setup that supports scalable development and deployment workflows.
 
 ## 🚀 Installation and Setup
 
