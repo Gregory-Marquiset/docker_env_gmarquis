@@ -60,7 +60,10 @@ RUN echo 'require("mason-tool-installer").install()' > /home/marquis_guest/insta
     nvim --headless -u /home/marquis_guest/install_mason_tools.lua +qa && \
     rm /home/marquis_guest/install_mason_tools.lua
 
-# Revenir à l'utilisateur root pour installer les polices
+# Lancer l'installation de lua-language-server et stylua dans Mason
+RUN nvim --headless -c 'MasonInstall lua-language-server stylua' -c 'q'
+
+    # Revenir à l'utilisateur root pour installer les polices
 USER root
 RUN mkdir -p /usr/share/fonts/truetype/hack && \
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Hack.zip -P /tmp && \
