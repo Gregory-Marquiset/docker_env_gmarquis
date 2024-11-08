@@ -1,20 +1,40 @@
 # Utiliser l'image de base Ubuntu LTS la plus récente
 FROM ubuntu:latest
 
+# Mettre à jour les paquets et installer les dépendances nécessaires
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y zsh git curl wget fonts-powerline locales && \
+    locale-gen en_US.UTF-8
+
+# Définir les variables d'environnement pour la locale
+ENV LANG=en_US.UTF-8 \
+    LANGUAGE=en_US:en \
+    LC_ALL=en_US.UTF-8 \
+    HOSTNAME="root"
+
+# Définir le répertoire de travail par défaut à /home
+WORKDIR /root
+
+# Installer Oh My Zsh pour l'utilisateur root
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
+    sed -i 's/^ZSH_THEME=.*/ZSH_THEME="agnoster"/' /root/.zshrc
+
+# Définir Zsh comme shell par défaut
+CMD ["zsh"]
+
 # Mettre à jour les paquets et installer les dépendances essentielles
-RUN rm -rf /home/ubuntu && \
-    apt update && apt upgrade -y && \
+RUN apt update && apt upgrade -y && \
     apt install -y build-essential \
     valgrind \
     tree \
     git \
-    curl \
-    wget \
     unzip \
     software-properties-common \
     fontconfig \
     libfuse2 \
     ripgrep \
+    xclip \
     nodejs \
     npm \
     python3 \
@@ -55,7 +75,7 @@ RUN echo 'require("mason-tool-installer").install()' > /root/install_mason_tools
     rm /root/install_mason_tools.lua
 
 # Lancer l'installation de lua-language-server et stylua dans Mason
-RUN nvim --headless -c 'MasonInstall lua-language-server stylua' -c 'q'
+RUN nvim --headless -c 'MasonInstall lua-language-server stylua clangd' -c 'q'
 
 # Installer les polices Hack Nerd
 RUN mkdir -p /usr/share/fonts/truetype/hack && \
@@ -65,8 +85,8 @@ RUN mkdir -p /usr/share/fonts/truetype/hack && \
     fc-cache -fv && \
     rm /tmp/Hack.zip
 
-# Personnaliser le prompt pour root
-RUN echo 'export PS1="root@marquis_denv:\w> "' >> /root/.bashrc
+# Supprimer le répertoire /home/ubuntu s'il existe
+RUN rm -rf /home
 
 # Exposer le shell et démarrer dans /home
-CMD ["bash", "-c", "cd /home && exec bash"]
+CMD ["zsh", "-c", "cd /root && exec zsh"]
