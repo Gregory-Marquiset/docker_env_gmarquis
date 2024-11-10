@@ -1,64 +1,39 @@
-# Marquis Development Environment (marquis_denv) 🛠️
+# Gregory Marquiset Development Environment (marquis_denv) 🛠️
 
-Bienvenue dans **marquis_denv** ! Ce projet est un environnement de développement Docker personnalisé, conçu pour simplifier la mise en place d'un environnement de travail cohérent où que vous soyez.
+Bienvenue sur **marquis_denv** ! Ce projet est un environnement de développement Docker personnalisé, basé sur **Ubuntu LTS**, conçu pour offrir un environnement pré-configuré adapté au développement des langages **C** et **C++**.
 
-## 👨‍💼 Présentation du projet
+## 📦 Fonctionnalités Principales
 
-**marquis_denv** fournit un environnement de développement basé sur **Ubuntu LTS**, préconfiguré avec des outils et éditeurs nécessaires pour le développement logiciel, en particulier pour les langages **C** et **C++**.
+- [**Neovim**](https://neovim.io/) avec [**NvChad**](https://nvchad.com/) : Un éditeur de texte puissant, personnalisé pour le développement moderne.
+- [**Valgrind**](https://valgrind.org/) : Utilitaire de débogage de la mémoire pour détecter et corriger les fuites.
+- [**Ripgrep**](https://github.com/BurntSushi/ripgrep) : Un outil de recherche de texte ultra-rapide.
+- [**Nerd Fonts**](https://www.nerdfonts.com/) : Police optimisée pour une meilleure expérience visuelle.
 
-### Fonctionnalités incluses :
+## 🚀 Installation Rapide (utiliser l'alias pour une utilisation plus simple et complete)
 
-- 🫠 **Neovim** (avec NvChad) comme éditeur de code principal
-- 🛠 **Build-essential** pour la compilation de code
-- 🔢 **Valgrind** pour le débogage de la mémoire
-- 📁 **Ripgrep** pour des recherches de code rapides et efficaces
-- 🌐 **Nerd Fonts** pour une interface plus agréable dans Neovim
-- 💻 Création d'un utilisateur **non-root** pour la sécurité
-
-## 📒 Pré-requis
-
-- **Docker** : Assurez-vous d'avoir Docker installé sur votre système.
-
-## 🛠 Installation
-
-1. Clonez le dépôt sur votre machine :
+1. **Installer Docker** : Consultez la [documentation Docker](https://docs.docker.com/get-started/) ou suivez les instructions du [wiki](https://github.com/Gregory-Marquiset/marquis_denv/wiki) pour un guide détaillé.
+2. **Clonez le dépôt** :
    ```bash
    git clone https://github.com/Gregory-Marquiset/marquis_denv.git
    ```
-2. Rendez-vous dans le répertoire du projet :
-   ```bash
-   cd marquis_denv
-   ```
-3. Construisez l'image Docker :
+3. **Construisez l'image Docker** :
    ```bash
    docker build -t marquis_denv .
    ```
+4. **Lancez le conteneur** :
+   ```bash
+   docker run -it marquis_denv
+   ```
+   Utilisez l'alias fourni pour simplifier ce processus.
 
-## 🌟 Utilisation
+## 📝 Alias pour Simplifier l'Utilisation
 
-Pour lancer le conteneur :
-```bash
-docker run -it marquis_denv
-```
-Cela vous connectera au shell de l'utilisateur **marquis_guest** dans l'environnement de développement pré-configuré.
+Un alias est disponible pour faciliter le lancement de **marquis_denv**. Cet alias vous permet de monter un répertoire local dans le conteneur, bénéficiant ainsi de vos droits d'utilisateur Git à l'intérieur du Docker. Cela vous permet également de synchroniser les modifications entre votre environnement Docker et votre dépôt local. Pour plus de détails sur l'installation et l'utilisation de l'alias, veuillez consulter le [wiki](https://github.com/Gregory-Marquiset/marquis_denv/wiki#-via-alias).
 
-## 🛡️ Outils inclus
+## 🛠️ Configuration et Personnalisation
 
-- **Neovim** avec **NvChad** pré-installé pour une expérience de développement moderne et personnalisable.
-- **Ripgrep** pour des recherches de texte rapides.
-- **Valgrind** pour vérifier les fuites de mémoire dans vos programmes C/C++.
-- **Nerd Fonts** (Hack Nerd Font) pour une meilleure expérience visuelle dans Neovim.
-
-## 🛠 Customisation de l'environnement
-L'éditeur **Neovim** est configuré avec **NvChad**, une distribution moderne qui offre de nombreuses fonctionnalités adaptées au développement. N'hésitez pas à personnaliser la configuration de Neovim (à l'emplacement `~/.config/nvim`) selon vos besoins.
-
-## 🌐 Liens utiles
-
-- [Dépôt GitHub](https://github.com/Gregory-Marquiset/marquis_denv) — Pour obtenir le code source et suivre les mises à jour du projet.
-- [Docker Documentation](https://docs.docker.com/get-started/) — Pour installer Docker si ce n'est pas déjà fait.
-
-## 🛍️ Licence
-Ce projet est sous licence **MIT**. Consultez le fichier `LICENSE` pour plus de détails.
+**marquis_denv** est conçu pour être flexible et évolutif. Personnalisez votre configuration Neovim en modifiant les fichiers dans `~/.config/nvim` ou ajoutez d'autres outils selon vos besoins. Consultez le [wiki](https://github.com/Gregory-Marquiset/marquis_denv/wiki) pour plus de détails sur les personnalisations possibles.
 
 ---
-Merci d'utiliser **marquis_denv** ! Si vous avez des suggestions d'amélioration ou des problèmes, n'hésitez pas à me contacter directement via GitHub. 👋🎉
+Merci d'utiliser **marquis_denv** ! Pour toute question ou suggestion, n'hésitez pas à consulter le wiki ou à me contacter directement. 😊
+
