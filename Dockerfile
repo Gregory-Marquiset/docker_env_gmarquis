@@ -1,34 +1,25 @@
 # Utiliser l'image de base Ubuntu LTS la plus récente
 FROM ubuntu:latest
 
-# Mettre à jour les paquets et installer les dépendances nécessaires
-RUN apt-get update && \
-    apt-get upgrade -y && \
-    apt-get install -y zsh git curl wget fonts-powerline locales && \
-    locale-gen en_US.UTF-8
-
 # Définir les variables d'environnement pour la locale
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en \
     LC_ALL=en_US.UTF-8 \
     HOSTNAME="root"
 
-# Définir le répertoire de travail par défaut à /home
-WORKDIR /root
-
-# Installer Oh My Zsh pour l'utilisateur root
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" && \
-    sed -i 's/^ZSH_THEME=.*/ZSH_THEME="agnoster"/' /root/.zshrc
-
-# Définir Zsh comme shell par défaut
-CMD ["zsh"]
-
-# Mettre à jour les paquets et installer les dépendances essentielles
-RUN apt update && apt upgrade -y && \
-    apt install -y build-essential \
+# Mettre à jour les paquets et installer les dépendances nécessaires
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y \
+    zsh \
+    git \
+    curl \
+    wget \
+    fonts-powerline \
+    locales \
+    build-essential \
     valgrind \
     tree \
-    git \
     unzip \
     software-properties-common \
     fontconfig \
@@ -38,15 +29,25 @@ RUN apt update && apt upgrade -y && \
     nodejs \
     npm \
     python3 \
-    python3-pip
+    python3-pip \
+    openssh-client
+
+# Générer les locales
+RUN locale-gen en_US.UTF-8
+
+# Définir le répertoire de travail par défaut à /root
+WORKDIR /root
+
+# Installer Oh My Zsh pour l'utilisateur root
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
+    sed -i 's/^ZSH_THEME=.*/ZSH_THEME="agnoster"/' /root/.zshrc
 
 # Installer la dernière version de Neovim
 RUN wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage && \
     chmod u+x nvim.appimage && \
     ./nvim.appimage --appimage-extract && \
     mv squashfs-root /root/nvim && \
-    mkdir -p /root/nvim/bin && \
-    ln -s /root/nvim/AppRun /root/nvim/bin/nvim && \
+    ln -s /root/nvim/AppRun /usr/bin/nvim && \
     rm nvim.appimage
 
 # Ajouter Neovim au PATH
@@ -56,37 +57,23 @@ ENV PATH="/root/nvim/bin/:${PATH}"
 RUN git clone https://github.com/NvChad/starter /root/.config/nvim --depth 1 && \
     rm -rf /root/.config/nvim/.git
 
-# Créer un script Lua pour Mason configuration et installation
-RUN mkdir -p /root/.config/nvim/lua/custom && \
-    echo 'require("mason").setup()' > /root/.config/nvim/lua/custom/mason_setup.lua && \
-    echo 'require("mason-lspconfig").setup({ ensure_installed = { "lua-language-server", "stylua" } })' >> /root/.config/nvim/lua/custom/mason_setup.lua && \
-    echo 'require("mason-tool-installer").setup { ensure_installed = { "lua-language-server", "stylua" }, auto_update = true, run_on_start = true }' >> /root/.config/nvim/lua/custom/mason_setup.lua
-
-# Installer Mason Tool Installer en tant que plugin personnalisé
-RUN mkdir -p /root/.config/nvim/lua/custom/plugins && \
-    echo 'return { "WhoIsSethDaniel/mason-tool-installer.nvim" }' > /root/.config/nvim/lua/custom/plugins/mason-tool-installer.lua
-
 # Exécuter Neovim pour charger les plugins et configurer Mason
 RUN nvim --headless +'Lazy! sync' +qa
 
 # Lancer l'installation Mason avec un script Lua supplémentaire
-RUN echo 'require("mason-tool-installer").install()' > /root/install_mason_tools.lua && \
-    nvim --headless -u /root/install_mason_tools.lua +qa && \
-    rm /root/install_mason_tools.lua
-
-# Lancer l'installation de lua-language-server et stylua dans Mason
 RUN nvim --headless -c 'MasonInstall lua-language-server stylua clangd' -c 'q'
 
 # Installer les polices Hack Nerd
 RUN mkdir -p /usr/share/fonts/truetype/hack && \
     wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Hack.zip -P /tmp && \
-    unzip /tmp/Hack.zip -d /usr/share/fonts/truetype/hack && \
-    find /usr/share/fonts/truetype/hack -name "*Mono*.ttf" -delete && \
+    unzip -qq /tmp/Hack.zip -d /usr/share/fonts/truetype/hack && \
+    find /usr/share/fonts/truetype/hack -name "*Windows Compatible.ttf" -delete && \
+    find /usr/share/fonts/truetype/hack -name "*Mono.ttf" -delete && \
     fc-cache -fv && \
     rm /tmp/Hack.zip
 
-# Supprimer le répertoire /home/ubuntu s'il existe
+# Supprimer le répertoire /home s'il existe
 RUN rm -rf /home
 
-# Exposer le shell et démarrer dans /home
-CMD ["zsh", "-c", "cd /root && exec zsh"]
+# Définir Zsh comme shell par défaut
+CMD ["zsh"]
