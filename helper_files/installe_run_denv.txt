@@ -1,0 +1,6 @@
+docker build -t gregorymarquiset/marquis_denv:latest .
+
+docker run -it gregorymarquiset/marquis_denv:latest
+ou
+marquis_denv
+ou marquis_denv ./depot

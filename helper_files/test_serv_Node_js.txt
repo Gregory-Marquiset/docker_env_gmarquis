@@ -1,0 +1,29 @@
+Créer un projet Node.js de test :
+
+Remarque : Pour accéder au serveur depuis votre hôte, vous devrez mapper les ports lors du lancement du conteneur :
+    docker run -it -p 3000:3000 gregorymarquiset/marquis_denv:latest
+Vous pourrez alors accéder à http://localhost:3000 depuis votre navigateur.
+
+Dans le conteneur, créez un répertoire de projet :
+
+Initialisez un projet Node.js :
+    npm init -y
+
+Installez Express.js :
+    npm install express
+
+Créez un fichier app.js avec un serveur de base :
+    const express = require('express');
+    const app = express();
+    const port = 3000;
+
+    app.get('/', (req, res) => {
+    res.send('Hello World!');
+    });
+
+    app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`);
+    });
+
+Lancez le serveur avec nodemon :
+    nodemon app.js

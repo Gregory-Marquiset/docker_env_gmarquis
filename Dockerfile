@@ -11,32 +11,39 @@ ENV LANG=en_US.UTF-8 \
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
-    zsh \
-    git \
-    curl \
-    wget \
-    fonts-powerline \
-    locales \
-    build-essential \
-    valgrind \
-    tree \
-    unzip \
-    software-properties-common \
-    fontconfig \
-    libfuse2 \
-    ripgrep \
-    xclip \
-    nodejs \
-    npm \
-    python3 \
-    python3-pip \
-    openssh-client
+        zsh \
+        git \
+        curl \
+        wget \
+        fonts-powerline \
+        locales \
+        build-essential \
+        valgrind \
+        tree \
+        unzip \
+        software-properties-common \
+        fontconfig \
+        libfuse2 \
+        ripgrep \
+        xclip \
+        python3 \
+        python3-pip \
+        openssh-client \
+        net-tools
 
 # Générer les locales
 RUN locale-gen en_US.UTF-8
 
+# Installer Node.js 18.x depuis NodeSource
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs
+
+# Installer des packages npm globaux
+RUN npm install -g nodemon
+
 # Définir le répertoire de travail par défaut à /root
 WORKDIR /root
+RUN mkdir -p projects
 
 # Installer Oh My Zsh pour l'utilisateur root
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended && \
@@ -60,8 +67,8 @@ RUN git clone https://github.com/NvChad/starter /root/.config/nvim --depth 1 && 
 # Exécuter Neovim pour charger les plugins et configurer Mason
 RUN nvim --headless +'Lazy! sync' +qa
 
-# Lancer l'installation Mason avec un script Lua supplémentaire
-RUN nvim --headless -c 'MasonInstall lua-language-server stylua clangd' -c 'q'
+# Lancer l'installation Mason avec typescript-language-server
+RUN nvim --headless -c 'MasonInstall lua-language-server stylua clangd typescript-language-server eslint_d prettier' -c 'q'
 
 # Installer les polices Hack Nerd
 RUN mkdir -p /usr/share/fonts/truetype/hack && \
