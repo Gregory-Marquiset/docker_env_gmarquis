@@ -19,6 +19,7 @@ RUN apt-get update && \
         locales \
         build-essential \
         valgrind \
+        libreadline-dev \
         tree \
         unzip \
         software-properties-common \
@@ -81,6 +82,21 @@ RUN mkdir -p /usr/share/fonts/truetype/hack && \
 
 # Supprimer le répertoire /home s'il existe
 RUN rm -rf /home
+
+RUN mkdir -p /root/.config/nvim/lua && \
+    printf 'require "nvchad.options"\n\nvim.opt.expandtab = false\nvim.opt.shiftwidth = 4\nvim.opt.tabstop = 4\nvim.opt.list = true\n' > /root/.config/nvim/lua/options.lua
+
+RUN printf 'local M = {}\n' > /root/.config/nvim/lua/chadrc.lua && \
+    printf 'M.base46 = {\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '   theme = "tomorrow_night",\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '   hl_override = {\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '      Comment = { italic = true, fg = "#5c6370" },\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '      ["@comment"] = { italic = true, fg = "#5c6370" },\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '      ["Function"] = { bold = true, fg = "#61afef" },\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '      ["String"] = { fg = "#98c379" },\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '      ["Keyword"] = { fg = "#c678dd" },\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '   },\n' >> /root/.config/nvim/lua/chadrc.lua && \
+    printf '}\nreturn M\nrequire("options")\n' >> /root/.config/nvim/lua/chadrc.lua
 
 # Définir Zsh comme shell par défaut
 CMD ["zsh"]
